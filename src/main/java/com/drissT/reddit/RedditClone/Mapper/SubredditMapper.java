@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface SubredditMapper 
 {
-    SubredditMapper INSTANCE = Mappers.getMapper(SubredditMapper.class);
+    // SubredditMapper INSTANCE = Mappers.getMapper(SubredditMapper.class);
     
     @Mapping(target="posts",ignore = true)
     Subreddit mapToSubreddit(SubredditDto subreddit);

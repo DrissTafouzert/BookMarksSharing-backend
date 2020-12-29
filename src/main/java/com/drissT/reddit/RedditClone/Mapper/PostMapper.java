@@ -18,14 +18,15 @@ import org.mapstruct.factory.Mappers;
 
 import lombok.AllArgsConstructor;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public abstract class PostMapper 
 {
-    //PostMapper INSTANCE= Mappers.getMapper(PostMapper.class);
-    private final  CommentService commentService;
-    private final VoteService voteService;
-    private final AuthService authService;
-
+    // PostMapper INSTANCE= Mappers.getMapper(PostMapper.class);
+    
+    private CommentService commentService;
+    private VoteService voteService;
+    private AuthService authService;
+   
     public PostMapper(CommentService commentService,
                     VoteService voteService,
                     AuthService authService)
@@ -34,6 +35,7 @@ public abstract class PostMapper
         this.voteService=voteService;
         this.authService=authService;
     }
+    public PostMapper(){}
 
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")

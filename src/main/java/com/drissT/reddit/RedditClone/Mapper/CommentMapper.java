@@ -9,10 +9,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CommentMapper 
 {
-    CommentMapper INSTANCE= Mappers.getMapper(CommentMapper.class);
+    // CommentMapper INSTANCE= Mappers.getMapper(CommentMapper.class);
     @Mapping(target="userName",expression="java(comment.getUser().getUsername())")
     @Mapping(target="id_post", expression="java(comment.getPost().getPostId())")
     public CommentDto mapToDto(Comment comment);
