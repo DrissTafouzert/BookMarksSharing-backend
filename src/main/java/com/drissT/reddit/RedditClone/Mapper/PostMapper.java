@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 @Mapper(componentModel = "spring")
 public abstract class PostMapper 
 {
-    // PostMapper INSTANCE= Mappers.getMapper(PostMapper.class);
     
     private CommentService commentService;
     private VoteService voteService;
