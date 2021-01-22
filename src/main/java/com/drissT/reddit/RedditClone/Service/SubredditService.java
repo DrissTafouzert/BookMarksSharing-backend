@@ -37,5 +37,11 @@ public class SubredditService
         .orElseThrow(()-> new RuntimeException("Subreddit not found !!!!"));
         return subredditMapper.mapSubredditToDto(subreddit);
 	}
+    public SubredditDto getSubredditByName(String name) 
+    {
+        Subreddit subreddit=subredditRepo.findByName(name)
+        .orElseThrow(()->new RuntimeException("Subreddit not found !!!!"));
+        return subredditMapper.mapSubredditToDto(subreddit);
+	}
     
 }

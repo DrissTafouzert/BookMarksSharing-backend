@@ -39,5 +39,10 @@ public class SubreddiController
     {
         return subredditService.getSubreddit(id);
     }
+    @GetMapping("/byName/{name}")
+    public SubredditDto getSubredditByName(@PathVariable String name)
+    {
+        return subredditService.getSubredditByName(name);
+    }
 
 }

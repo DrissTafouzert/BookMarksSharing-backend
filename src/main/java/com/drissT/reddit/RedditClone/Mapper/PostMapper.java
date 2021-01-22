@@ -9,23 +9,22 @@ import com.drissT.reddit.RedditClone.Model.Subreddit;
 import com.drissT.reddit.RedditClone.Model.User;
 import com.drissT.reddit.RedditClone.Service.AuthService;
 import com.drissT.reddit.RedditClone.Service.CommentService;
-import com.drissT.reddit.RedditClone.Service.PostService;
 import com.drissT.reddit.RedditClone.Service.VoteService;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
-
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
 public abstract class PostMapper 
 {
-    
+    @Autowired
     private CommentService commentService;
+    @Autowired
     private VoteService voteService;
+    @Autowired
     private AuthService authService;
-   
+    
     public PostMapper(CommentService commentService,
                     VoteService voteService,
                     AuthService authService)
