@@ -44,10 +44,10 @@ public class PostController
         return postService.getPostsBySubreddit(id);
     }
 
-    @GetMapping("/by-user/{username}")
-    public List<PostResponse> getPostsByUser(@PathVariable String username)
+    @GetMapping("/by-current-user")
+    public List<PostResponse> getPostsByUser()
     {
-        return postService.getPostsByUser(username);
+        return postService.getPostsByUser();
     }
     @GetMapping("/search/{postTitle}")
     public List<PostResponse> searchPost(@PathVariable String postTitle)

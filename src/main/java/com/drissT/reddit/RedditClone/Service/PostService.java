@@ -62,14 +62,13 @@ public class PostService
                 .collect(Collectors.toList());
     }
 
-    public List<PostResponse> getPostsByUser(String username)
+    public List<PostResponse> getPostsByUser()
     {
-        User user=userRepo.findByUsername(username)  
-                            .orElseThrow(()->new RuntimeException("User not found !!!"));;
-        return postRepo.findByUser(user)
-                .stream()
-                .map(postMapper::mapToDto)
-                .collect(Collectors.toList());
+        User user=authService.getCurrentUser();
+        return postRepo.findAllByCurrentUser(user.getUserId())
+                    .stream()
+                    .map(postMapper::mapToDto)
+                    .collect(Collectors.toList());
     }
 
     public List<PostResponse> searchPostByTitle(String postTitle) 
