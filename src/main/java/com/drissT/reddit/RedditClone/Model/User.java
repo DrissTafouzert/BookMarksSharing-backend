@@ -2,11 +2,17 @@ package com.drissT.reddit.RedditClone.Model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +34,7 @@ public class User
     private String email;
     private Instant created;
     private boolean enabled;
+    @ManyToMany(fetch=FetchType.LAZY)
+    private List<Subreddit> join_subreddits;
+  
 }

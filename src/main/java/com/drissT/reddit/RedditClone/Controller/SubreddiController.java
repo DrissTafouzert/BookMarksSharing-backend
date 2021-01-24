@@ -1,6 +1,7 @@
 package com.drissT.reddit.RedditClone.Controller;
 
 import java.util.List;
+import java.util.Set;
 
 import com.drissT.reddit.RedditClone.DTO.SubredditDto;
 import com.drissT.reddit.RedditClone.Model.Subreddit;
@@ -43,6 +44,11 @@ public class SubreddiController
     public SubredditDto getSubredditByName(@PathVariable String name)
     {
         return subredditService.getSubredditByName(name);
+    }
+    @GetMapping("/join/{id}")
+    public void joinSubreddit(@PathVariable Long id)
+    {
+        subredditService.joinSubreddit(id);
     }
 
 }

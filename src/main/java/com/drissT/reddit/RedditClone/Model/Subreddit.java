@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -30,7 +31,9 @@ public class Subreddit
     @OneToMany(fetch = LAZY)
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private List<Post> posts;
-    private Instant createdDate;
+    private Instant createdDate; 
     @ManyToOne(fetch = LAZY)
     private User user;
+    @ManyToMany(fetch=FetchType.LAZY,mappedBy = "join_subreddits")
+    private List<User> users;
 }

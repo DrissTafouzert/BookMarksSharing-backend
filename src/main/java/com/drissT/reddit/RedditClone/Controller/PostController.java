@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.drissT.reddit.RedditClone.DTO.PostRequest;
 import com.drissT.reddit.RedditClone.DTO.PostResponse;
-import com.drissT.reddit.RedditClone.Model.Post;
 import com.drissT.reddit.RedditClone.Service.PostService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,10 +54,5 @@ public class PostController
     {
         return postService.searchPostByTitle(postTitle);
     }
-    @GetMapping("/test")
-    public String get()
-    {
-        return "postService.getAll()";
-    } 
 }
 
