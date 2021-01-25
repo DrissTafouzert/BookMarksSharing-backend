@@ -55,6 +55,13 @@ public class SubredditService
         .orElseThrow(()->new RuntimeException("Subreddit not found !!!"));
         user.getJoin_subreddits().add(subreddit);
         userRepo.save(user);
-	}
+    }
+    public List<SubredditDto> get10Top()
+    {
+        return subredditRepo.findTop10()
+                .stream()
+                .map(subredditMapper::mapSubredditToDto)
+                .collect(Collectors.toList());
+    }
     
 }

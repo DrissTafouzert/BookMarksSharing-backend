@@ -50,5 +50,10 @@ public class SubreddiController
     {
         subredditService.joinSubreddit(id);
     }
+    @GetMapping("/top10")
+    public List<SubredditDto> getTop10()
+    {
+        return subredditService.get10Top();
+    }
 
 }
