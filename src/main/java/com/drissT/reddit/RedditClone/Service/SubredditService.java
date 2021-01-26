@@ -1,5 +1,6 @@
 package com.drissT.reddit.RedditClone.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,8 +26,11 @@ public class SubredditService
     private final UserRepository userRepo;
     public SubredditDto save(SubredditDto subredditDto)
     {
-        Subreddit sub=subredditRepo.save(subredditMapper.mapToSubreddit(subredditDto));
-        subredditDto.setId(sub.getId());
+        Subreddit subreddit=subredditMapper.mapToSubreddit(subredditDto);
+        subreddit.setUser(this.authservice.getCurrentUser());
+        subreddit.setCreatedDate(Instant.now());
+        subredditRepo.save(subreddit);
+        subredditDto.setId(subreddit.getId());
         return subredditDto;
     }
     public List<SubredditDto> getAll() 
