@@ -23,11 +23,11 @@ public class CommentService
     private final PostRepository postRepo;
     private final UserRepository userRepo;
     private final CommentMapper commentMapper;
+    private final AuthService authService ;
 
     public CommentDto save(CommentDto commentDto)
     {
-        User user=userRepo.findByUsername(commentDto.getUserName())
-                        .orElseThrow(()-> new RuntimeException("User not found !!!"));
+        User user=this.authService.getCurrentUser();
         Post post=postRepo.findById(commentDto.getId_post())
                     .orElseThrow(()-> new RuntimeException("Post not found !!!"));
         Comment comment=commentRepo.save(commentMapper.mapToComment(commentDto, post, user));

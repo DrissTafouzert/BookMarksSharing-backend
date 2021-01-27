@@ -55,8 +55,15 @@ public class SubredditService
     public void joinSubreddit(Long id) 
     {
         User user= authservice.getCurrentUser();
+        
         Subreddit subreddit=subredditRepo.findById(id)
         .orElseThrow(()->new RuntimeException("Subreddit not found !!!"));
+        
+        subredditRepo.isJoined(user.getUserId(), id)
+        .ifPresent(e -> {
+                         throw new RuntimeException("You already joined this subreddit");
+                        });
+        
         user.getJoin_subreddits().add(subreddit);
         userRepo.save(user);
     }
