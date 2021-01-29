@@ -1,5 +1,6 @@
 package com.drissT.reddit.RedditClone.Service;
 
+import java.io.IOException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
@@ -30,8 +31,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class AuthService 
-{
+public class AuthService {
     private final UserRepository userRepo;
     private final MailService mailService;
     private final MailContentBuilder mailContentBuilder;
@@ -40,9 +40,18 @@ public class AuthService
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+
     @Transactional
-    public void signUp(RegisterRequest registerRequest) 
+    public void signUp(RegisterRequest registerRequest) throws IOException 
     {
+        userRepo.findByUsername(registerRequest.getUserName())
+                .ifPresent(e->{
+                    throw new RuntimeException("User name you chose is taken");
+                });
+        userRepo.findByEmail(registerRequest.getEmail())
+                    .ifPresent(e->{
+                        throw new RuntimeException("Email you entered is taken");
+                    });
         User user = User.builder()
                 .email(registerRequest.getEmail())
                 .created(Instant.now())
@@ -52,7 +61,7 @@ public class AuthService
         userRepo.save(user);
         String token = generateVerificationToken(user);
         mailService.sendMail(new NotificationEmail("Activer votre compte", user.getEmail(),
-                mailContentBuilder.build("<a href='http://localhost:8080/api/auth/verifyAccount/" +token+"'>click her to confirm</a>")));
+                mailContentBuilder.build("<a href='http://localhost:8080/api/auth/verifyAccount/" +token+"'>click here to confirm your account.</a>")));
     }
 
     private String generateVerificationToken(User user) {

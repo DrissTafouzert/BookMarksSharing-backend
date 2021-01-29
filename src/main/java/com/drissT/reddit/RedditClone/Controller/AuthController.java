@@ -1,5 +1,7 @@
 package com.drissT.reddit.RedditClone.Controller;
 
+import java.io.IOException;
+
 import com.drissT.reddit.RedditClone.DTO.AuthenticationResponse;
 import com.drissT.reddit.RedditClone.DTO.LoginRequest;
 import com.drissT.reddit.RedditClone.DTO.RefreshTokenRequest;
@@ -24,7 +26,7 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody RegisterRequest registerRequest) {
+    public void signUp(@RequestBody RegisterRequest registerRequest) throws IOException {
         authService.signUp(registerRequest);
     }
 
