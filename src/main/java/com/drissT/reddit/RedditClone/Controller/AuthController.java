@@ -31,8 +31,9 @@ public class AuthController {
     }
 
     @GetMapping("/verifyAccount/{token}")
-    public void verifyAccount(@PathVariable String token) {
+    public String verifyAccount(@PathVariable String token) {
         authService.verifyAcount(token);
+        return "<h3>Your account is activeted now, you can use your user name and password to login</h3>";
     }
 
     @PostMapping("/login")

@@ -1,9 +1,6 @@
 package com.drissT.reddit.RedditClone.Service;
 
-import java.io.IOException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
+import java.io.IOException; 
 import java.time.Instant;
 import java.util.UUID;
 
@@ -24,9 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import io.jsonwebtoken.security.InvalidKeyException;
+import org.springframework.transaction.annotation.Transactional; 
 import lombok.AllArgsConstructor;
 
 @Service
@@ -61,7 +56,7 @@ public class AuthService {
         userRepo.save(user);
         String token = generateVerificationToken(user);
         mailService.sendMail(new NotificationEmail("Activer votre compte", user.getEmail(),
-                mailContentBuilder.build("<a href='http://localhost:8080/api/auth/verifyAccount/" +token+"'>click here to confirm your account.</a>")));
+                mailContentBuilder.build("<a href='http://localhost:8080/api/auth/verifyAccount/" +token+"'>Click here to confirm your account.</a>")));
     }
 
     private String generateVerificationToken(User user) {

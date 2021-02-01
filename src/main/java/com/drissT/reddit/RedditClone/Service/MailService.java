@@ -30,9 +30,8 @@ public class MailService
       String subject = notificationEmail.getSubject();
       Email to = new Email(notificationEmail.getRecipient());
       Content content = new Content("text/html", mailContentBuilder.build(notificationEmail.getBody()));
-      Mail mail = new Mail(from, subject, to, content);
+      Mail mail = new Mail(from, subject, to, content); 
 
-      // SendGrid sg = new SendGrid(SENDGRID_API_KEY.toString());
       Request request = new Request();
       try {
         request.setMethod(Method.POST);
@@ -42,8 +41,9 @@ public class MailService
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
         System.out.println(response.getHeaders());
-      } catch (IOException ex) {
-        throw ex;
+      } catch (IOException ex) 
+      {
+        throw new RuntimeException("Something wrong during sending email to your address, try again.");
       }
     }
 
