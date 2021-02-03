@@ -1,6 +1,6 @@
 package com.drissT.reddit.RedditClone.Service;
 
-import java.io.IOException; 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -15,6 +15,7 @@ import com.drissT.reddit.RedditClone.Repository.UserRepository;
 import com.drissT.reddit.RedditClone.Repository.VerificationTokenRepository;
 import com.drissT.reddit.RedditClone.Security.JwtProvider;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -56,7 +57,7 @@ public class AuthService {
         userRepo.save(user);
         String token = generateVerificationToken(user);
         mailService.sendMail(new NotificationEmail("Activer votre compte", user.getEmail(),
-                mailContentBuilder.build("<a href='http://localhost:8080/api/auth/verifyAccount/" +token+"'>Click here to confirm your account.</a>")));
+                mailContentBuilder.build("<a href='https://reddit-clone-app-api.herokuapp.com/api/auth/verifyAccount/" +token+"'>Click here to confirm your account.</a> <h2>Or copy past this link in your browser:</h2><p>https://reddit-clone-app-api.herokuapp.com/api/auth/verifyAccount/" +token+"</p>")));
     }
 
     private String generateVerificationToken(User user) {
@@ -81,6 +82,10 @@ public class AuthService {
 
     public User getCurrentUser() 
     {
+        if(!isLogedIn())
+        {
+            return null;
+        }
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) 
                                                                 SecurityContextHolder
                                                                 .getContext()
@@ -117,8 +122,14 @@ public class AuthService {
                                     .build();
     }
 
-    void isLogedIn()
+    public boolean isLogedIn()
     {
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
+    
+    public void logOut()
+    {
+        SecurityContextHolder.clearContext();
     }
 }

@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             .authorizeRequests()
             .antMatchers("/api/auth/**").permitAll()
             .antMatchers(HttpMethod.GET,"/api/post/**").permitAll()
-            .antMatchers(HttpMethod.GET,"/api/comment/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/comments/**").permitAll()
             .antMatchers(HttpMethod.GET,"/api/subreddit/**").permitAll()
             .antMatchers("/v2/api-docs",
                         "/configuration/ui",

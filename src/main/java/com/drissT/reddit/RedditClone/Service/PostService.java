@@ -27,14 +27,15 @@ public class PostService
     private final PostRepository postRepo;
     private final SubredditRepository subredditRepo;
     private final PostMapper postMapper;
-    private final UserRepository userRepo;
     private final AuthService authService;
 
     public void save(PostRequest post) 
     {
         Subreddit subreddit=subredditRepo.findByName(post.getSubredditName())
         .orElseThrow(()-> new RuntimeException("Not found Subreddit"));
-        postRepo.save(postMapper.map(post,subreddit,authService.getCurrentUser()));
+        Post n_post=postRepo.save(postMapper.map(post,subreddit,authService.getCurrentUser()));
+        subreddit.getPosts().add(n_post);
+        subredditRepo.save(subreddit);
     }
 
     public List<PostResponse> getAll()

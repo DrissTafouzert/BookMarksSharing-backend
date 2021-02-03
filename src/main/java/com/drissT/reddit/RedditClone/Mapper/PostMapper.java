@@ -64,12 +64,26 @@ public abstract class PostMapper
 
     boolean isUpVote(Post post)
     {
-         return this.voteService.isUpVote(post,this.authService.getCurrentUser());
+        if(this.authService.getCurrentUser()!=null)
+        {
+            return this.voteService.isUpVote(post,this.authService.getCurrentUser());
+        }
+        else
+        {
+            return false;
+        }
     }
 
     boolean isDownVote(Post post)
     {
-        return this.voteService.isDownVote(post, this.authService.getCurrentUser());
+        if(this.authService.getCurrentUser()!=null)
+        {
+            return this.voteService.isDownVote(post, this.authService.getCurrentUser());
+        }
+        else
+        {
+            return false;
+        }
     }
     String getAgoTime(Long timeMilli)
     {

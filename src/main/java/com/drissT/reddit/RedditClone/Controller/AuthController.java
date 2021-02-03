@@ -33,7 +33,7 @@ public class AuthController {
     @GetMapping("/verifyAccount/{token}")
     public String verifyAccount(@PathVariable String token) {
         authService.verifyAcount(token);
-        return "<h3>Your account is activeted now, you can use your user name and password to login</h3>";
+        return "<h3>Your account is activeted now, you can use your user name and password to login.</h3><p><strong>Login:</strong> https://reddit-clone-app-front-end.herokuapp.com/login</p>";
     }
 
     @PostMapping("/login")
@@ -50,5 +50,6 @@ public class AuthController {
     public void logout(@RequestBody RefreshTokenRequest refreshTokenRequest)
     {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
+        this.authService.logOut();
     }
 }

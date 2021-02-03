@@ -3,7 +3,6 @@ package com.drissT.reddit.RedditClone.Service;
 import com.drissT.reddit.RedditClone.Model.NotificationEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +18,6 @@ import com.sendgrid.helpers.mail.objects.Email;
 @AllArgsConstructor
 public class MailService 
 { 
-  private final MailContentBuilder mailContentBuilder;
 
   @Autowired
   private SendGridAPI sendGridAPi;
@@ -29,7 +27,7 @@ public class MailService
       Email from = new Email("driss.tafouzert@gmail.com");
       String subject = notificationEmail.getSubject();
       Email to = new Email(notificationEmail.getRecipient());
-      Content content = new Content("text/html", mailContentBuilder.build(notificationEmail.getBody()));
+      Content content = new Content("text/html", notificationEmail.getBody());
       Mail mail = new Mail(from, subject, to, content); 
 
       Request request = new Request();
