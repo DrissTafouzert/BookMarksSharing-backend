@@ -27,6 +27,7 @@ public class Subreddit
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String name;
+    @Lob
     private String description;
     @OneToMany(fetch = LAZY)
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
