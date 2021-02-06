@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.hibernate.annotations.Type;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +29,7 @@ public class Subreddit
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String name;
-    @Lob
+    @Column(columnDefinition="TEXT")
     private String description;
     @OneToMany(fetch = LAZY)
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})

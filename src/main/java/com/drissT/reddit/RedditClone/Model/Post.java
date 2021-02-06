@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class Post
     @Nullable
     private String url;
     @Nullable
-    @Lob
+    @Column(columnDefinition="TEXT")
     private String description;
     private Integer voteCount = 0;
     @ManyToOne(fetch = LAZY)
